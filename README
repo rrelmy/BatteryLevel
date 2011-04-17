@@ -1,0 +1,15 @@
+Minimalistic Application which shows the current Battery Level of the device
+
+Source: https://github.com/rrelmy/BatteryLevel
+
+Features
+- Click anywhere to close it
+
+Changelog
+1.0
+- initial
+
+1.1
+- level will be updated
+- about screen
+- source at github
