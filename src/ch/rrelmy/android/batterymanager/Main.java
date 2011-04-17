@@ -16,6 +16,7 @@ import android.os.BatteryManager;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.util.Linkify;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,6 +31,7 @@ public class Main extends Activity {
 	protected BatteryLevelView mBatteryLevelView;
 	
 	protected BroadcastReceiver batteryLevelReceiver;
+	protected IntentFilter batteryLevelFilter;
 	
 	final static int MENU_CLOSE = 1;
 	final static int MENU_ABOUT = 2;
@@ -38,7 +40,7 @@ public class Main extends Activity {
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        
+        Log.i("BatteryLevel", "onCreate");
         // blur the background
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND,
         			WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
@@ -54,7 +56,15 @@ public class Main extends Activity {
     @Override
     public void onStop() {
     	super.onStop();
+    	Log.i("BatteryLevel", "onStop");
     	this.unregisterReceiver(batteryLevelReceiver);
+    }
+    
+    @Override
+    public void onResume() {
+    	super.onResume();
+    	Log.i("BatteryLevel", "onResume");
+    	registerReceiver(batteryLevelReceiver, batteryLevelFilter);
     }
     
     // touch
@@ -78,7 +88,7 @@ public class Main extends Activity {
                 mBatteryLevelView.setLevel(level);
             }
         };
-        IntentFilter batteryLevelFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        batteryLevelFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         registerReceiver(batteryLevelReceiver, batteryLevelFilter);
     }
     
@@ -123,8 +133,9 @@ public class Main extends Activity {
     			"E-Mail: remyboehler@gmail.com" +
     			"</p>" +
     			
-    			"Source: github.com/rrelmy/BatteryLevel<br />" +
-    			"License: GPLv3"
+    			"Version: 0.2<br />" +
+    			"License: GPLv3<br />" + 
+    			"Source: github.com/rrelmy/BatteryLevel"
     	));
     	// TODO better way for that?
     	// link mail
