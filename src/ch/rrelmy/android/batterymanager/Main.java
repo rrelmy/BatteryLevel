@@ -16,11 +16,9 @@ import android.os.BatteryManager;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.util.Linkify;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -40,10 +38,6 @@ public class Main extends Activity {
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        Log.i("BatteryLevel", "onCreate");
-        // blur the background
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND,
-        			WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
         
         mBatteryLevelView = new BatteryLevelView(this);
         mBatteryLevelView.setOnClickListener(mClickListener);
@@ -56,14 +50,12 @@ public class Main extends Activity {
     @Override
     public void onStop() {
     	super.onStop();
-    	Log.i("BatteryLevel", "onStop");
     	this.unregisterReceiver(batteryLevelReceiver);
     }
     
     @Override
     public void onResume() {
     	super.onResume();
-    	Log.i("BatteryLevel", "onResume");
     	registerReceiver(batteryLevelReceiver, batteryLevelFilter);
     }
     
@@ -119,8 +111,8 @@ public class Main extends Activity {
     public void showAboutDialog()
     {
     	Dialog dialog = new Dialog(this);
-    	dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND,
-    			WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
+    	/*dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND,
+    			WindowManager.LayoutParams.FLAG_BLUR_BEHIND);*/
     	
     	LinearLayout mDialogLayout = new LinearLayout(this);
 
@@ -176,7 +168,6 @@ public class Main extends Activity {
     		paintTextLevel.setTextAlign(Align.CENTER);
     		paintTextLevel.setShadowLayer(5, 0, 0, Color.BLACK);
     		paintTextLevel.setColor(Color.WHITE);
-
     	}
     	
     	public void setLevel(int level)
